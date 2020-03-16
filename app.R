@@ -20,7 +20,7 @@ ui <- fluidPage("Welcome to Planet Irf",
                             label = "Choose a Number",
                             value = 50, min = 1, max = 100),
                 
-                actionButton(inputId = "go",
+                actionButton(inputId = "clicks",
                              label="Update"),
                 
                 textInput(inputId = "title",
@@ -50,12 +50,12 @@ server <- function(input, output) {
      })
     
     output$hist <- renderPlot({
-        hist(rnorm(data()), 
+        hist(data(), 
              main = isolate(input$title))
     })
     
     output$stats <- renderPrint({
-        summary(rnorm(data()))
+        summary(data())
     })
     
     
