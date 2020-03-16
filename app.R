@@ -12,54 +12,76 @@ library(shiny)
 #ui.R
 # Define UI, Adding elements to app.
 ui <- fluidPage(
-                "Welcome to Planet Irf",
-                ## *Input() functions [buttons, checkpox, password input, sliders, text, date]
-                ## *Output() functions
-                tags$a( href = "www.rstudio.com", "RStduio"),
-                ## yields HTML: <a href="www.rstudio.com">Rstudio</a>
-                tags$h1("First Level"),
-                tags$h2("Second Level"),
-                tags$h3("Third Level"),
-                tags$h4("Fourth Level"),
-                tags$h5("Fifth Level"),
-                tags$h6("Sixth Level"),
-                ##
-                tags$p("text in a <p>"),
-                
-                tags$em("italics"),
-                tags$strong("bold"),
-                tags$code("code"),
-                
-                ## Nesting tags together
-                tags$p("This is a nested", 
+    "Welcome to Planet Irf",
+    fluidRow(
+        column(3, sliderInput(inputId = "num",
+                              label = "Choose a Number",
+                              value = 50, min = 1, max = 100),
+               
+               actionButton(inputId = "go",
+                            label="Update"),
+               
+               actionButton(inputId = "norm",
+                            label="Normal"),
+               
+               actionButton(inputId = "unif",
+                            label="Uniform"),
+               
+               textInput(inputId = "title",
+                         label = "Write a title",
+                         value = "Histogram of Random Normal Values"),),
+        column(5,    tags$a( href = "www.rstudio.com", "RStduio"),
+               ## yields HTML: <a href="www.rstudio.com">Rstudio</a>
+               tags$h1("First Level"),
+               tags$h2("Second Level"),
+               tags$h3("Third Level"),
+               tags$h4("Fourth Level"),
+               tags$h5("Fifth Level"),
+               tags$h6("Sixth Level"),
+               ##
+               tags$p("text in a <p>"),
+               
+               tags$em("italics"),
+               tags$strong("bold"),
+               tags$code("code"),
+               
+               ## Nesting tags together
+               tags$p("This is a nested", 
                       tags$strong("bolded words"),
                       "app"),
+               
+               #Line Break
+               tags$br(), 
+               ## horizontal rule
+               tags$hr(),
+               
+               #add images || Must be params ie (x = xval)
+               # add local content to www folder
+               tags$img(height=100,
+                        width=100,
+                        src = "http://www.rstudio.com/images/Rstudio.2x.png"),
+               
+               ## wrapper functions in R built for easy ie 
+               # no need to call tags$ for basic stuff like a, p, h1-6, img
+               h3("no tags$ required"),
+               
+               ## HTML() will parse HMTL within '' a character string
+               HTML('<p> this is raw HTML </p>'),)
+    ),
+    
+    fluidRow(
+        column(4, offset = 8,plotOutput("hist"),
+               plotOutput("hist2"),)
+    ),
                 
-                #Line Break
-                tags$br(), 
-                ## horizontal rule
-                tags$hr(),
+                ## *Input() functions [buttons, checkpox, password input, sliders, text, date]
+                ## *Output() functions
+             
                 
-                sliderInput(inputId = "num",
-                            label = "Choose a Number",
-                            value = 50, min = 1, max = 100),
                 
-                actionButton(inputId = "go",
-                             label="Update"),
-                
-                actionButton(inputId = "norm",
-                             label="Normal"),
-                
-                actionButton(inputId = "unif",
-                             label="Uniform"),
-                
-                textInput(inputId = "title",
-                          label = "Write a title",
-                          value = "Histogram of Random Normal Values"),
                 
                 ##outputs()
-                plotOutput("hist"),
-                plotOutput("hist2"),
+
                 
                 verbatimTextOutput("stats")
                 )
