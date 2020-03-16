@@ -23,12 +23,19 @@ ui <- fluidPage("Welcome to Planet Irf",
                 actionButton(inputId = "go",
                              label="Update"),
                 
+                actionButton(inputId = "norm",
+                             label="Normal"),
+                
+                actionButton(inputId = "unif",
+                             label="Uniform"),
+                
                 textInput(inputId = "title",
                           label = "Write a title",
                           value = "Histogram of Random Normal Values"),
                 
                 ##outputs()
                 plotOutput("hist"),
+                plotOutput("hist2"),
                 
                 verbatimTextOutput("stats")
                 )
@@ -40,6 +47,16 @@ ui <- fluidPage("Welcome to Planet Irf",
 # Rule 2. Build objects to display with render()
 # Rule 3. Use input values with input$
 server <- function(input, output) {
+    
+    rv <- reactiveValues(data = rnorm(100))
+    
+    observeEvent(input$norm, { rv$data <- rnorm(100)})
+    observeEvent(input$unif, { rv$data <- runif(100)})
+    
+    output$hist2 <- renderPlot({
+        hist(rv$data)
+    })
+    
    ## use reactive() to create a passable data()
      data <- eventReactive(input$go,{
         rnorm(input$num)
