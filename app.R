@@ -20,7 +20,7 @@ ui <- fluidPage("Welcome to Planet Irf",
                             label = "Choose a Number",
                             value = 50, min = 1, max = 100),
                 
-                actionButton(inputId = "clicks",
+                actionButton(inputId = "go",
                              label="Update"),
                 
                 textInput(inputId = "title",
@@ -41,12 +41,12 @@ ui <- fluidPage("Welcome to Planet Irf",
 # Rule 3. Use input values with input$
 server <- function(input, output) {
    ## use reactive() to create a passable data()
-     data <- reactive({
+     data <- eventReactive(input$go,{
         rnorm(input$num)
     })
     
-     observeEvent(input$clicks, {
-         print(as.numeric(input$clicks))
+     observeEvent(input$go, {
+         print(as.numeric(input$go))
      })
     
     output$hist <- renderPlot({
