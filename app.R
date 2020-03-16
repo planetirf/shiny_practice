@@ -11,11 +11,35 @@ library(shiny)
 
 #ui.R
 # Define UI, Adding elements to app.
-ui <- fluidPage("Welcome to Planet Irf",
+ui <- fluidPage(
+                "Welcome to Planet Irf",
                 ## *Input() functions [buttons, checkpox, password input, sliders, text, date]
                 ## *Output() functions
-                
+                tags$a( href = "www.rstudio.com", "RStduio"),
+                ## yields HTML: <a href="www.rstudio.com">Rstudio</a>
+                tags$h1("First Level"),
+                tags$h2("Second Level"),
+                tags$h3("Third Level"),
+                tags$h4("Fourth Level"),
+                tags$h5("Fifth Level"),
+                tags$h6("Sixth Level"),
                 ##
+                tags$p("text in a <p>"),
+                
+                tags$em("italics"),
+                tags$strong("bold"),
+                tags$code("code"),
+                
+                ## Nesting tags together
+                tags$p("This is a nested", 
+                      tags$strong("bolded words"),
+                      "app"),
+                
+                #Line Break
+                tags$br(), 
+                ## horizontal rule
+                tags$hr(),
+                
                 sliderInput(inputId = "num",
                             label = "Choose a Number",
                             value = 50, min = 1, max = 100),
@@ -47,6 +71,8 @@ ui <- fluidPage("Welcome to Planet Irf",
 # Rule 2. Build objects to display with render()
 # Rule 3. Use input values with input$
 server <- function(input, output) {
+    
+    
     
     rv <- reactiveValues(data = rnorm(100))
     
