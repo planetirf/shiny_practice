@@ -14,15 +14,22 @@ library(shiny)
 ui <- fluidPage("Welcome to Planet Irf",
                 ## *Input() functions [buttons, checkpox, password input, sliders, text, date]
                 ## *Output() functions
+                
+                ##
                 sliderInput(inputId = "num",
                             label = "Choose a Number",
                             value = 50, min = 1, max = 100),
+                
                 actionButton(inputId = "go",
                              label="Update"),
+                
                 textInput(inputId = "title",
                           label = "Write a title",
                           value = "Histogram of Random Normal Values"),
+                
+                ##outputs()
                 plotOutput("hist"),
+                
                 verbatimTextOutput("stats")
                 )
 
